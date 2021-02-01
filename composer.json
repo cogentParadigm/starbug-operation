@@ -1,0 +1,24 @@
+{
+  "name": "starbug/operation",
+  "description": "PSR-15 middleware for handling POST requests such as form submissions and API calls.",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Ali Gangji",
+      "homepage": "https://github.com/cogentParadigm"
+    }
+  ],
+  "require": {
+    "starbug/bundle": "^1.0",
+    "psr/http-message": "^1.0",
+    "psr/http-server-middleware": "^1.0"
+  },
+  "require-dev": {
+    "starbug/devel": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Starbug\\Operation\\": "src/"
+    }
+  }
+}

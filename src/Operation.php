@@ -1,0 +1,43 @@
+<?php
+namespace Starbug\Operation;
+
+use Starbug\Bundle\BundleInterface;
+
+abstract class Operation implements OperationInterface {
+  /**
+   * Track result.
+   *
+   * @var BundleInterface
+   */
+  protected $errors;
+
+  public function configure($options = []) {
+    // No default implementation.
+  }
+
+  /**
+   * Handle the operation. Implement this method in child classes.
+   *
+   * @see OperationInterface::execute
+   */
+  abstract public function handle(BundleInterface $data, BundleInterface $state): BundleInterface;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function execute(BundleInterface $data, BundleInterface $state): BundleInterface {
+    return $this->errors = $this->handle($data, $state);
+  }
+
+  public function isExecuted() {
+    return $this->errors instanceof BundleInterface;
+  }
+
+  public function success() {
+    return ($this->isExecuted() && $this->errors->isEmpty());
+  }
+
+  public function failure() {
+    return ($this->isExecuted() && !$this->errors->isEmpty());
+  }
+}
