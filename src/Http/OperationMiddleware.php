@@ -48,12 +48,12 @@ class OperationMiddleware implements MiddlewareInterface {
     return $handler->handle($request);
   }
   protected function isExecutable(ServerRequestInterface $request) {
-    return in_array($request->getMethod(), ["POST"]) &&
-    $request->getAttribute("route")->hasOption("operation");
+    return in_array($request->getMethod(), ["POST", "PUT", "DELETE"]) &&
+    $request->getAttribute("route")->hasOperation($request->getMethod());
   }
   protected function getOperation(ServerRequestInterface $request): ?OperationInterface {
     if ($this->isExecutable($request)) {
-      return $this->operations->get($request->getAttribute("route")->getOption("operation"));
+      return $this->operations->get($request->getAttribute("route")->getOperation($request->getMethod()));
     }
     return null;
   }
