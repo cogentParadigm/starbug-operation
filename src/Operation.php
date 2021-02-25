@@ -1,6 +1,7 @@
 <?php
 namespace Starbug\Operation;
 
+use Starbug\Bundle\Bundle;
 use Starbug\Bundle\BundleInterface;
 
 abstract class Operation implements OperationInterface {
@@ -20,12 +21,16 @@ abstract class Operation implements OperationInterface {
    *
    * @see OperationInterface::execute
    */
-  abstract public function handle(BundleInterface $data, BundleInterface $state): BundleInterface;
+  abstract public function handle(array $data, BundleInterface $state): BundleInterface;
 
   /**
    * {@inheritdoc}
    */
-  public function execute(BundleInterface $data, BundleInterface $state): BundleInterface {
+  public function execute(array $data, $state = null): BundleInterface {
+    $state = $state ?? new Bundle();
+    if (is_array($state)) {
+      $state = new Bundle($state);
+    }
     return $this->errors = $this->handle($data, $state);
   }
 

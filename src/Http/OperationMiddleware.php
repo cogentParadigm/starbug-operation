@@ -62,7 +62,7 @@ class OperationMiddleware implements MiddlewareInterface {
     $operation->configure($arguments);
   }
   protected function execute(OperationInterface $operation, ServerRequestInterface $request): BundleInterface {
-    $data = $this->bundles->create($request->getParsedBody());
+    $data = $request->getParsedBody();
     $state = $this->bundles->create();
     return $operation->execute($data, $state);
   }
