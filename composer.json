@@ -14,11 +14,17 @@
     "psr/http-server-middleware": "^1.0"
   },
   "require-dev": {
-    "starbug/devel": "^1.0"
+    "starbug/devel": "^1.0",
+    "phpunit/phpunit": "^9.0"
   },
   "autoload": {
     "psr-4": {
       "Starbug\\Operation\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Starbug\\Operation\\Tests\\": "tests/"
     }
   }
 }
